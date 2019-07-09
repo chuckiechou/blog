@@ -38,13 +38,25 @@ const newBlog = (blogData = {}) => {
 }
 
 const updateBlog = (id, blogData = {}) => {
-    console.log('id,blogdata', id, blogData)
-    return true;
+    const title = blogData.title;
+    const content = blogData.content;
+    const sql = `update blogs set title='${title}',content='${content}' where id=${id}`;
+    return exec(sql).then(updateData => {
+        if (updateData.affectedRows > 0) {
+            return true;
+        }
+        return false;
+    });
 }
 
-const delBlog = (id) => {
-
-    return true;
+const delBlog = (id, author) => {
+    const sql = `delete from blogs where id=${id} and author='${author}'`;
+    return exec(sql).then(delData => {
+        if (delData.affectedRows > 0) {
+            return true;
+        }
+        return false;
+    });
 }
 
 module.exports = {
