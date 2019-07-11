@@ -15,8 +15,9 @@ const handleUserRouter = (req, res) => {
         const result = login(username, password);
         return result.then(data => {
             if (data.username) {
-                //操作cookie
-                res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpire()}`);
+                req.session.username = data.username;
+                req.session.realname = data.realname;
+                console.log('session', req.session);
 
                 return new SuccessModel();
             }
