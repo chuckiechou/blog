@@ -1,3 +1,4 @@
+const { xss } = require('xss');
 const { exec } = require('../db/mysql');
 const getList = (author, keyword) => {
     let sql = `select * from blogs where 1=1 `;
@@ -22,7 +23,8 @@ const getDetail = (id) => {
 }
 
 const newBlog = (blogData = {}) => {
-    const title = blogData.title;
+    console.log(typeof xss)
+    const title = xss(blogData.title);
     const content = blogData.content;
     const author = blogData.author;
     const createtime = Date.now();
@@ -30,7 +32,6 @@ const newBlog = (blogData = {}) => {
     const sql = `insert into blogs (title,content,author,createtime) values ('${title}','${content}','${author}',${createtime})`;
 
     return exec(sql).then(insertData => {
-        console.log('insertData is', insertData);
         return {
             id: insertData.insertId
         }

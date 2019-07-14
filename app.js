@@ -1,4 +1,5 @@
 const querystring = require('querystring');
+const { access } = require('./src/util/log');
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
 
@@ -39,6 +40,9 @@ const getPostData = (req) => {
 }
 
 const serverHandle = (req, res) => {
+    //access
+    access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`);
+
     res.setHeader('Content-Type', 'application/json');
 
     const url = req.url;

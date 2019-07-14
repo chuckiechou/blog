@@ -29,15 +29,14 @@ const handleBlogRouter = (req, res) => {
 
     if (method === 'POST' && req.path === '/api/blog/new') {
 
-        const loginCheckResult = loginCheck(req);
-        if (loginCheckResult) {
-            return loginCheckResult;
-        }
+        // const loginCheckResult = loginCheck(req);
+        // if (loginCheckResult) {
+            // return loginCheckResult;
+        // }
 
         req.body.author = req.session.username;
         const result = newBlog(req.body);
         return result.then(data => {
-            console.log(data);
             return new SuccessModel(data);
         });
     }
@@ -46,7 +45,7 @@ const handleBlogRouter = (req, res) => {
 
         const loginCheckResult = loginCheck(req);
         if (loginCheckResult) {
-            return loginCheckResult;
+            // return loginCheckResult;
         }
 
         const result = updateBlog(id, req.body);
