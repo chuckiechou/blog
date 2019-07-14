@@ -12,7 +12,7 @@ const handleBlogRouter = (req, res) => {
     const id = req.query.id;
 
     if (method === 'GET' && req.path === '/api/blog/list') {
-        const author = req.query.author || '';
+        let author = req.query.author || '';
         const keyword = req.query.keyword || '';
         const result = getList(author, keyword);
         return result.then(listData => {
